@@ -12,6 +12,8 @@
 
   window.Backbone = window.Backbone || require('backbone');
 
+  module.exports = window.Tourist;
+
   /*
   A model for the Tour. We'll only use the 'current_step' property.
   */
