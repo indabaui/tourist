@@ -4,7 +4,11 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
+  window.$ = window.jQuery = window.jQuery || require('jquery');
+
   window.Tourist = window.Tourist || {};
+
+  window.Backbone = window.Backbone || require('backbone');
 
   /*
   A model for the Tour. We'll only use the 'current_step' property.
