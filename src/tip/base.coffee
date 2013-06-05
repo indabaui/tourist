@@ -40,6 +40,18 @@ class Tourist.Tip.Base
   constructor: (@options={}) ->
     @el = $('<div/>')
 
+    if @options.skipButtonTemplate
+      @skipButtonTemplate = @options.skipButtonTemplate
+    if @options.nextButtonTemplate
+      @nextButtonTemplate = @options.nextButtonTemplate
+    if @options.finalButtonTemplate
+      @finalButtonTemplate = @options.finalButtonTemplate
+    
+    if @options.closeButtonTemplate
+      @closeButtonTemplate = @options.closeButtonTemplate
+    if @options.okButtonTemplate
+      @okButtonTemplate = @options.okButtonTemplate
+
     @initialize(options)
 
     @_bindClickEvents()

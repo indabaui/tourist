@@ -59,6 +59,15 @@ module.exports = function(grunt) {
           'test/vendor/javascripts/jasmine-jquery.js'
         ]
       }
+    },
+
+    component: {
+      install: {
+        options: {
+          action: 'install'
+        }
+      },
+      build: {}
     }
   });
 
@@ -67,7 +76,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-component');
 
   grunt.registerTask('test', ['concat', 'coffee', 'jasmine']);
-  grunt.registerTask('default', ['concat', 'coffee', 'uglify']);
+  grunt.registerTask('default', ['concat', 'coffee', 'uglify','component']);
 };
