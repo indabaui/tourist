@@ -71,6 +71,21 @@
       this.onClickNext = __bind(this.onClickNext, this);
       this.onClickClose = __bind(this.onClickClose, this);
       this.el = $('<div/>');
+      if (this.options.skipButtonTemplate) {
+        this.skipButtonTemplate = this.options.skipButtonTemplate;
+      }
+      if (this.options.nextButtonTemplate) {
+        this.nextButtonTemplate = this.options.nextButtonTemplate;
+      }
+      if (this.options.finalButtonTemplate) {
+        this.finalButtonTemplate = this.options.finalButtonTemplate;
+      }
+      if (this.options.closeButtonTemplate) {
+        this.closeButtonTemplate = this.options.closeButtonTemplate;
+      }
+      if (this.options.okButtonTemplate) {
+        this.okButtonTemplate = this.options.okButtonTemplate;
+      }
       this.initialize(options);
       this._bindClickEvents();
       Tourist.Tip.Base._cacheTip(this);
