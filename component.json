@@ -1,0 +1,25 @@
+{
+	"name": "tourist",
+	"description": "Simple, flexible tours for your app.",
+	"keywords": [
+		"jquery",
+		"tourist",
+		"tour"
+	],
+	"repo": "indabaui/tourist",
+	"version": "0.0.11",
+	"main": "tourist.js",
+	"dependencies": {
+		"component/underscore": "*",
+		"component/jquery": "*",
+    "brighthas/backbone": "*"
+	},
+	"scripts": [
+		"tourist.js"
+	],
+  "styles": [
+    "tourist.css"
+  ], 
+	"license": "MIT"
+}
+

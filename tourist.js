@@ -4,7 +4,15 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
+  window._ = window._ || require('underscore');
+
+  window.$ = window.jQuery = window.jQuery || require('jquery');
+
   window.Tourist = window.Tourist || {};
+
+  window.Backbone = window.Backbone || require('backbone');
+
+  module.exports = window.Tourist;
 
   /*
   A model for the Tour. We'll only use the 'current_step' property.
@@ -63,6 +71,21 @@
       this.onClickNext = __bind(this.onClickNext, this);
       this.onClickClose = __bind(this.onClickClose, this);
       this.el = $('<div/>');
+      if (this.options.skipButtonTemplate) {
+        this.skipButtonTemplate = this.options.skipButtonTemplate;
+      }
+      if (this.options.nextButtonTemplate) {
+        this.nextButtonTemplate = this.options.nextButtonTemplate;
+      }
+      if (this.options.finalButtonTemplate) {
+        this.finalButtonTemplate = this.options.finalButtonTemplate;
+      }
+      if (this.options.closeButtonTemplate) {
+        this.closeButtonTemplate = this.options.closeButtonTemplate;
+      }
+      if (this.options.okButtonTemplate) {
+        this.okButtonTemplate = this.options.okButtonTemplate;
+      }
       this.initialize(options);
       this._bindClickEvents();
       Tourist.Tip.Base._cacheTip(this);
@@ -125,7 +148,6 @@
 
     Base.prototype._bindClickEvents = function() {
       var el;
-
       el = this._getTipElement();
       el.delegate('.tour-close', 'click', this.onClickClose);
       return el.delegate('.tour-next', 'click', this.onClickNext);
@@ -141,7 +163,6 @@
 
     Base.prototype._buildContentElement = function(step) {
       var buttons, content;
-
       buttons = this._buildButtons(step);
       content = $($.parseHTML(this.template({
         content: step.content,
@@ -159,7 +180,6 @@
 
     Base.prototype._buildButtons = function(step) {
       var buttons;
-
       buttons = '';
       if (step.okButton) {
         buttons += this.okButtonTemplate;
@@ -183,7 +203,6 @@
 
     Base.prototype._renderActionLabels = function(el) {
       var action, actionIndex, actions, label, _i, _len, _results;
-
       actions = el.find('.action');
       actionIndex = 0;
       _results = [];
@@ -207,7 +226,6 @@
 
     Base.destroy = function() {
       var tip, _i, _len, _ref1;
-
       if (!Tourist.Tip.Base._cachedTips) {
         return;
       }
@@ -238,7 +256,6 @@
 
     Bootstrap.prototype.initialize = function(options) {
       var defs;
-
       defs = {
         showEffect: null,
         hideEffect: null
@@ -254,7 +271,6 @@
 
     Bootstrap.prototype.show = function() {
       var fn;
-
       if (this.options.showEffect) {
         fn = Tourist.Tip.Bootstrap.effects[this.options.showEffect];
         return fn.call(this, this.tip, this.tip.el);
@@ -265,7 +281,6 @@
 
     Bootstrap.prototype.hide = function() {
       var fn;
-
       if (this.options.hideEffect) {
         fn = Tourist.Tip.Bootstrap.effects[this.options.hideEffect];
         return fn.call(this, this.tip, this.tip.el);
@@ -290,7 +305,6 @@
 
     Bootstrap.prototype._renderContent = function(step, contentElement) {
       var at, my;
-
       my = step.my || 'left center';
       at = step.at || 'right center';
       this.tip.setContainer(step.container || $('body'));
@@ -305,7 +319,6 @@
   Tourist.Tip.Bootstrap.effects = {
     slidein: function(tip, element) {
       var OFFSETS, css, easing, easings, offset, side, value, _i, _len;
-
       OFFSETS = {
         top: 80,
         left: 80,
@@ -363,7 +376,6 @@
 
     function BootstrapTip(options) {
       var defs;
-
       defs = {
         offset: 10,
         tipOffset: 10
@@ -420,7 +432,6 @@
 
     BootstrapTip.prototype._setPosition = function(target, my, at) {
       var clas, css, originalDisplay, position, shift, targetPosition, tip, tipOffset, tipPosition, _ref2;
-
       if (my == null) {
         my = 'left center';
       }
@@ -470,7 +481,6 @@
 
     BootstrapTip.prototype._caculateTargetPosition = function(atPosition, target) {
       var bounds, pos;
-
       if (Object.prototype.toString.call(target) === '[object Array]') {
         return {
           left: target[0],
@@ -487,7 +497,6 @@
 
     BootstrapTip.prototype._caculateTipPosition = function(myPosition, targetPosition) {
       var height, pos, width;
-
       width = this.el[0].offsetWidth;
       height = this.el[0].offsetHeight;
       pos = this._lookupPosition(myPosition, width, height);
@@ -499,7 +508,6 @@
 
     BootstrapTip.prototype._adjustForArrow = function(myPosition, tipPosition) {
       var clas, height, position, shift, tip, width, _ref2;
-
       _ref2 = myPosition.split(' '), clas = _ref2[0], shift = _ref2[1];
       tip = this._getTipElement();
       width = tip[0].offsetWidth;
@@ -539,7 +547,6 @@
 
     BootstrapTip.prototype._lookupPosition = function(position, width, height) {
       var height2, posLookup, width2;
-
       width2 = width / 2;
       height2 = height / 2;
       posLookup = {
@@ -561,7 +568,6 @@
 
     BootstrapTip.prototype._getTargetBounds = function(target) {
       var el, size;
-
       el = target[0];
       if (typeof el.getBoundingClientRect === 'function') {
         size = el.getBoundingClientRect();
@@ -589,7 +595,8 @@
     __extends(QTip, _super);
 
     function QTip() {
-      this._renderTipBackground = __bind(this._renderTipBackground, this);      _ref2 = QTip.__super__.constructor.apply(this, arguments);
+      this._renderTipBackground = __bind(this._renderTipBackground, this);
+      _ref2 = QTip.__super__.constructor.apply(this, arguments);
       return _ref2;
     }
 
@@ -615,7 +622,6 @@
         delay: 0,
         effect: function(qtip) {
           var css, el, offset, side, value;
-
           el = $(this);
           side = qtip.options.position.my;
           if (side) {
@@ -701,7 +707,6 @@
     QTip.prototype._renderContent = function(step, contentElement) {
       var at, my,
         _this = this;
-
       my = step.my || 'left center';
       at = step.at || 'right center';
       this._adjustPlacement(my, at);
@@ -735,7 +740,6 @@
 
     QTip.prototype._renderTipBackground = function(direction) {
       var bg, el;
-
       el = $('#qtip-' + this.qtip.id + ' .qtip-tip');
       bg = el.find('.qtip-tip-bg');
       if (!bg.length) {
@@ -882,7 +886,6 @@
 
     function Tour(options) {
       var defs, tipOptions;
-
       this.options = options != null ? options : {};
       this.onChangeCurrentStep = __bind(this.onChangeCurrentStep, this);
       this.next = __bind(this.next, this);
@@ -922,7 +925,6 @@
 
     Tour.prototype.next = function() {
       var currentStep, index;
-
       currentStep = this._teardownCurrentStep();
       index = 0;
       if (currentStep) {
@@ -965,7 +967,6 @@
 
     Tour.prototype._teardownCurrentStep = function() {
       var currentStep;
-
       currentStep = this.model.get('current_step');
       this._teardownStep(currentStep);
       return currentStep;
@@ -981,7 +982,6 @@
 
     Tour.prototype._showFinalStep = function(success) {
       var currentStep, finalStep;
-
       currentStep = this._teardownCurrentStep();
       finalStep = success ? this.options.successStep : this.options.cancelStep;
       if (_.isFunction(finalStep)) {
@@ -1016,7 +1016,6 @@
 
     Tour.prototype._setupStep = function(step) {
       var fn, _i, _len, _ref4;
-
       if (!(step && step.setup)) {
         return {};
       }
